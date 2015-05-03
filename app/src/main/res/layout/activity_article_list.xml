@@ -11,7 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
         android:id="@+id/custom_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -20,5 +25,7 @@
         android:focusable="false"
         android:listSelector="@drawable/list_selector"
         android:visibility="gone" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

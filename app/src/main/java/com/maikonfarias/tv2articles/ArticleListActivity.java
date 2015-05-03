@@ -2,6 +2,7 @@ package com.maikonfarias.tv2articles;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,16 +35,26 @@ import java.util.ArrayList;
 
 public class ArticleListActivity extends ActionBarActivity {
 
+    private final String articlesUrl = "http://app-backend.tv2.dk/articles/v1/?section_identifier=2";
     private ArrayList<ArticleItem> articleList = null;
     private ProgressBar progressbar = null;
     private ListView feedListView = null;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
-        String url = "http://app-backend.tv2.dk/articles/v1/?section_identifier=2";
-        new DownloadFilesTask().execute(url);
+        getArticles();
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getArticles();
+            }
+        });
     }
 
 
@@ -64,22 +75,21 @@ public class ArticleListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void getArticles() {
+        new DownloadFilesTask().execute(articlesUrl);
+    }
+
     public void updateList() {
-        feedListView= (ListView) findViewById(R.id.custom_list);
+        feedListView = (ListView)findViewById(R.id.custom_list);
         feedListView.setVisibility(View.VISIBLE);
         progressbar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
 
         feedListView.setAdapter(new CustomListAdapter(this, articleList));
         feedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> a, View v, int position,	long id) {
-                /*Object o = feedListView.getItemAtPosition(position);
-                ArticleItem newsData = (ArticleItem) o;
-
-                Intent intent = new Intent(ArticleListActivity.this, ArticleListActivity.class);
-                intent.putExtra("feed", newsData);
-                startActivity(intent);*/
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = feedListView.getItemAtPosition(position);
                 ArticleItem articleData = (ArticleItem) o;
                 Intent intent = new Intent(ArticleListActivity.this, WebViewActivity.class);
