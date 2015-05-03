@@ -170,6 +170,14 @@ public class ArticleListActivity extends ActionBarActivity {
                 item.setIdentifier(post.getString("identifier"));
                 item.setUrl(post.getString("url"));
                 item.setSmallTeaserImage(post.getString("small_teaser_image"));
+                item.setTeaserImage(post.getString("teaser_image"));
+                item.setCategory(post.getString("category"));
+                item.setHasVideo(post.getString("has_video"));
+                item.setIsBreaking(post.getString("is_breaking"));
+                item.setIsExternal(post.getString("is_external"));
+                item.setIsLive(post.getString("is_live"));
+                item.setModified(post.getString("modified"));
+                item.setPublicUrl(post.getString("public_url"));
 
                 articleList.add(item);
             }

@@ -1,6 +1,10 @@
 package com.maikonfarias.tv2articles.model;
 
+import android.text.format.DateUtils;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ArticleItem implements Serializable {
 
@@ -15,6 +19,7 @@ public class ArticleItem implements Serializable {
 	private String publicUrl;
 	private String smallTeaserImage;
 	private String teaserImage;
+	private String category;
 
 	public String getUrl() {
 		return url;
@@ -76,6 +81,23 @@ public class ArticleItem implements Serializable {
 		return modified;
 	}
 
+	public Date getModifieldDate() {
+		try {
+			Long timesLong = Long.parseLong(modified)*DateUtils.SECOND_IN_MILLIS;
+			return new Date(timesLong);
+		}
+		catch(Exception e) {
+			return new Date();
+		}
+	}
+
+	public String getModifiedTimeAgo() {
+		Long timeArticle = getModifieldDate().getTime();
+		Long timeSystem = System.currentTimeMillis();
+		CharSequence timeAgoString = DateUtils.getRelativeTimeSpanString(timeArticle, timeSystem, DateUtils.SECOND_IN_MILLIS);
+		return  timeAgoString.toString();
+	}
+
 	public void setModified(String modified) {
 		this.modified = modified;
 	}
@@ -102,5 +124,13 @@ public class ArticleItem implements Serializable {
 
 	public void setTeaserImage(String teaserImage) {
 		this.teaserImage = teaserImage;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

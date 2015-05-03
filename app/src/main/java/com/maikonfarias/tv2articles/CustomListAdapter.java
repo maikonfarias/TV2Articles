@@ -2,6 +2,7 @@ package com.maikonfarias.tv2articles;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,15 +57,38 @@ public class CustomListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+
+
+
 		ArticleItem newsItem = listData.get(position);
 		holder.getHeadlineView().setText(newsItem.getTitle());
-		//TODO make time ago from modified
-		//holder.reportedDateView.setText(newsItem.getDate());
-		holder.getReportedDateView().setText("recent");
+		holder.reportedDateView.setText(newsItem.getModifiedTimeAgo());
+
+		if(newsItem.getHasVideo() == "true") {
+			convertView.findViewById(R.id.videoImage).setVisibility(View.VISIBLE);
+		} else {
+			convertView.findViewById(R.id.videoImage).setVisibility(View.GONE);
+		}
+
+		if(newsItem.getIsLive() == "true") {
+			convertView.findViewById(R.id.live).setVisibility(View.VISIBLE);
+		} else {
+			convertView.findViewById(R.id.live).setVisibility(View.GONE);
+		}
+
+		if(newsItem.getIsBreaking() == "true") {
+			convertView.findViewById(R.id.breaking).setVisibility(View.VISIBLE);
+			convertView.findViewById(R.id.row).setBackgroundColor(Color.YELLOW);
+		} else {
+			convertView.findViewById(R.id.breaking).setVisibility(View.GONE);
+			convertView.findViewById(R.id.row).setBackgroundColor(0);
+		}
 
 		holder.getImageView().setImageResource(R.drawable.list_placeholder);
 
-		if(newsItem.getSmallTeaserImage() == null || newsItem.getSmallTeaserImage().equals("null")) {
+		if(newsItem.getSmallTeaserImage() == null
+				|| newsItem.getSmallTeaserImage().equals("null")) {
+
 			holder.imageView.setVisibility(View.GONE);
 		} else if (holder.getImageView() != null) {
 			holder.imageView.setVisibility(View.VISIBLE);

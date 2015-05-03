@@ -1,30 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="70dp"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="70dp"
+    android:id="@+id/row"
     tools:context="com.maikonfarias.tv2articles.ArticleListRowFragment">
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:visibility="invisible" />
-
-    <ImageView
         android:id="@+id/thumbImage"
-        android:layout_width="70dp"
+        android:layout_width="120dp"
         android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:background="@drawable/list_placeholder" />
-
+    <ImageView
+        android:id="@+id/videoImage"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:background="@drawable/video" />
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/breaking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/thumbImage"
         android:lineSpacingExtra="3dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
-        android:text="454545"
+        android:text="BREAKING"
+        android:textColor="@drawable/list_item_text_selector"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:typeface="sans" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breaking"
+        android:layout_toRightOf="@id/thumbImage"
+        android:lineSpacingExtra="3dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="Article Title"
         android:textColor="@drawable/list_item_text_selector"
         android:textStyle="bold"
         android:typeface="sans" />
@@ -37,8 +57,21 @@
         android:layout_toRightOf="@id/thumbImage"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
-        android:text="999"
+        android:text="Time Ago"
         android:textColor="@drawable/list_item_text_selector"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/live"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@id/date"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="(live)"
+        android:textColor="@drawable/list_item_text_selector"
+        android:visibility="gone"
         android:textSize="11sp" />
 
 </RelativeLayout>
