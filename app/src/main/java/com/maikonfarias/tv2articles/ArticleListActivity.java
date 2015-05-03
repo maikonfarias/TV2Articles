@@ -17,6 +17,7 @@ import com.maikonfarias.tv2articles.model.ArticleItem;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
@@ -42,7 +43,6 @@ public class ArticleListActivity extends ActionBarActivity {
         setContentView(R.layout.activity_article_list);
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
         String url = "http://app-backend.tv2.dk/articles/v1/?section_identifier=2";
-        //String url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android";
         new DownloadFilesTask().execute(url);
     }
 
@@ -125,9 +125,9 @@ public class ArticleListActivity extends ActionBarActivity {
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpGet httpGet = new HttpGet(url);
 
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
 
@@ -159,37 +159,20 @@ public class ArticleListActivity extends ActionBarActivity {
 
     }
 
-    public void parseJson(JSONArray json) {
+    public void parseJson(JSONArray posts) {
         try {
+            articleList = new ArrayList<>();
 
-            // parsing json object
-            //if (json.getString("status").equalsIgnoreCase("ok")) {
+            for (int i = 0; i < posts.length(); i++) {
+                JSONObject post = posts.getJSONObject(i);
+                ArticleItem item = new ArticleItem();
+                item.setTitle(post.getString("title"));
+                item.setIdentifier(post.getString("identifier"));
+                item.setUrl(post.getString("url"));
+                item.setSmallTeaserImage(post.getString("small_teaser_image"));
 
-                //JSONArray posts = json.getJSONArray("posts");
-                JSONArray posts = (JSONArray)json;
-
-                articleList = new ArrayList<ArticleItem>();
-
-                for (int i = 0; i < posts.length(); i++) {
-                    JSONObject post = (JSONObject) posts.getJSONObject(i);
-                    ArticleItem item = new ArticleItem();
-                    item.setTitle(post.getString("title"));
-                    //item.setDate(post.getString("date"));
-                    //item.setId(post.getString("id"));
-                    item.setUrl(post.getString("url"));
-                    //item.setContent(post.getString("content"));
-                    item.setSmallTeaserImage(post.getString("small_teaser_image"));
-
-                    //JSONArray attachments = post.getJSONArray("attachments");
-                    /*if (null != attachments && attachments.length() > 0) {
-                        JSONObject attachment = attachments.getJSONObject(0);
-                        if (attachment != null)
-                            item.setAttachmentUrl(attachment.getString("url"));
-                    }*/
-
-                    articleList.add(item);
-                }
-            //}
+                articleList.add(item);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

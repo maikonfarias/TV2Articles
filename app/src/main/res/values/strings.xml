@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TV 2 Articles</string>
+    <string name="app_name">TV 2 Nyhederne</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_article_list">Articles List</string>
     <string name="title_activity_article_details">Article Detail</string>
