@@ -61,19 +61,19 @@ public class CustomListAdapter extends BaseAdapter {
 		holder.getHeadlineView().setText(newsItem.getTitle());
 		holder.reportedDateView.setText(newsItem.getModifiedTimeAgo());
 
-		if(newsItem.getHasVideo().equals("true")) {
+		if(newsItem.getHasVideo()) {
 			convertView.findViewById(R.id.videoImage).setVisibility(View.VISIBLE);
 		} else {
 			convertView.findViewById(R.id.videoImage).setVisibility(View.GONE);
 		}
 
-		if(newsItem.getIsLive().equals("true")) {
+		if(newsItem.getIsLive()) {
 			convertView.findViewById(R.id.live).setVisibility(View.VISIBLE);
 		} else {
 			convertView.findViewById(R.id.live).setVisibility(View.GONE);
 		}
 
-		if(newsItem.getIsBreaking().equals("true")) {
+		if(newsItem.getIsBreaking()) {
 			convertView.findViewById(R.id.breaking).setVisibility(View.VISIBLE);
 			convertView.findViewById(R.id.row).setBackgroundColor(Color.YELLOW);
 		} else {

@@ -10,12 +10,12 @@ public class ArticleItem implements Serializable {
 
 	private String title;
 	private String url;
-	private String hasVideo;
+	private Boolean hasVideo;
 	private String identifier;
-	private String isBreaking;
-	private String isExternal;
-	private String isLive;
-	private String modified;
+	private Boolean isBreaking;
+	private Boolean isExternal;
+	private Boolean isLive;
+	private Long modified;
 	private String publicUrl;
 	private String smallTeaserImage;
 	private String teaserImage;
@@ -37,11 +37,11 @@ public class ArticleItem implements Serializable {
 		this.title = title;
 	}
 
-	public String getHasVideo() {
+	public Boolean getHasVideo() {
 		return hasVideo;
 	}
 
-	public void setHasVideo(String hasVideo) {
+	public void setHasVideo(Boolean hasVideo) {
 		this.hasVideo = hasVideo;
 	}
 
@@ -53,37 +53,36 @@ public class ArticleItem implements Serializable {
 		this.identifier = identifier;
 	}
 
-	public String getIsBreaking() {
+	public Boolean getIsBreaking() {
 		return isBreaking;
 	}
 
-	public void setIsBreaking(String isBreaking) {
+	public void setIsBreaking(Boolean isBreaking) {
 		this.isBreaking = isBreaking;
 	}
 
-	public String getIsExternal() {
+	public Boolean getIsExternal() {
 		return isExternal;
 	}
 
-	public void setIsExternal(String isExternal) {
+	public void setIsExternal(Boolean isExternal) {
 		this.isExternal = isExternal;
 	}
 
-	public String getIsLive() {
+	public Boolean getIsLive() {
 		return isLive;
 	}
 
-	public void setIsLive(String isLive) {
+	public void setIsLive(Boolean isLive) {
 		this.isLive = isLive;
 	}
 
-	public String getModified() {
+	public Long getModified() {
 		return modified;
 	}
 
 	public Date getModifieldDate() {
 		try {
-			Long timesLong = Long.parseLong(modified)*DateUtils.SECOND_IN_MILLIS;
 			return new Date(timesLong);
 		}
 		catch(Exception e) {
@@ -98,7 +97,7 @@ public class ArticleItem implements Serializable {
 		return  timeAgoString.toString();
 	}
 
-	public void setModified(String modified) {
+	public void setModified(Long modified) {
 		this.modified = modified;
 	}
 

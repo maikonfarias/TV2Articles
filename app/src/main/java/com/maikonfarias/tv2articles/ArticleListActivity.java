@@ -170,11 +170,11 @@ public class ArticleListActivity extends AppCompatActivity {
                 item.setSmallTeaserImage(post.getString("small_teaser_image"));
                 item.setTeaserImage(post.getString("teaser_image"));
                 item.setCategory(post.getString("category"));
-                item.setHasVideo(post.getString("has_video"));
-                item.setIsBreaking(post.getString("is_breaking"));
-                item.setIsExternal(post.getString("is_external"));
-                item.setIsLive(post.getString("is_live"));
-                item.setModified(post.getString("modified"));
+                item.setHasVideo(Boolean.valueOf(post.getString("has_video")));
+                item.setIsBreaking(Boolean.valueOf(post.getString("is_breaking")));
+                item.setIsExternal(Boolean.valueOf(post.getString("is_external")));
+                item.setIsLive(Boolean.valueOf(post.getString("is_live")));
+                item.setModified(Long.parseLong(post.getString("modified")));
                 item.setPublicUrl(post.getString("public_url"));
 
                 articleList.add(item);
