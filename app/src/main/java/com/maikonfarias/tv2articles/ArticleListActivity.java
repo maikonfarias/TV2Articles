@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +21,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
-public class ArticleListActivity extends ActionBarActivity {
+public class ArticleListActivity extends AppCompatActivity {
 
     private final String articlesUrl = "http://app-backend.tv2.dk/articles/v1/?section_identifier=2";
     private ArrayList<ArticleItem> articleList = null;
@@ -55,24 +56,9 @@ public class ArticleListActivity extends ActionBarActivity {
                 getArticles();
             }
         });
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_article_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_launcher);
     }
 
     public void getArticles() {
@@ -94,6 +80,8 @@ public class ArticleListActivity extends ActionBarActivity {
                 ArticleItem articleData = (ArticleItem) o;
                 Intent intent = new Intent(ArticleListActivity.this, WebViewActivity.class);
                 intent.putExtra("url", articleData.getUrl());
+                intent.putExtra("public_url", articleData.getPublicUrl());
+                intent.putExtra("title", articleData.getTitle());
                 startActivity(intent);
             }
         });
@@ -194,5 +182,25 @@ public class ArticleListActivity extends ActionBarActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                getArticles();
+                mSwipeRefreshLayout.setRefreshing(true);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

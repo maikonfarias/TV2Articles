@@ -89,7 +89,9 @@ public class CustomListAdapter extends BaseAdapter {
 			holder.imageView.setVisibility(View.GONE);
 		} else if (holder.getImageView() != null) {
 			holder.imageView.setVisibility(View.VISIBLE);
-			ImageDownloaderTask.loadImage(holder, newsItem.getSmallTeaserImage(), newsItem.getIdentifier());
+			ImageDownloaderTask.loadImage(holder,
+					newsItem.getSmallTeaserImage(),
+					newsItem.getIdentifier());
 		}
 
 		return convertView;

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.maikonfarias.tv2articles" >
+    package="com.maikonfarias.tv2articles"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,16 +17,19 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ArticleListActivity"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".WebViewActivity"
-            android:label="@string/title_activity_web_view" >
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ArticleListActivity" />
         </activity>
     </application>
 
