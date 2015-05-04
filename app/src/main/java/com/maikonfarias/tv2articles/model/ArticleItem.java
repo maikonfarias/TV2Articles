@@ -83,6 +83,7 @@ public class ArticleItem implements Serializable {
 
 	public Date getModifieldDate() {
 		try {
+			Long timesLong = modified * DateUtils.SECOND_IN_MILLIS;
 			return new Date(timesLong);
 		}
 		catch(Exception e) {
